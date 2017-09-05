@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="__ROOT__/Admin/Index/main"  target="_parent">首页</a></li>
+    <li><a href="javascript:;">站点统计</a></li>
+    </ul>
+    </div>
+    <div class="formbody">
+    
+    <div class="formtitle"><span>站点统计</span></div>
+    
+    <ul class="forminfo">
+    <li><label>操作系统</label>
+    <input  type="text" class="dfinput"  value="<?php echo $info['操作系统'];?>"  disabled/></li>
+    <li><label>运行环境</label>
+    <input  type="text" class="dfinput"  value="<?php echo $info['运行环境'];?>" disabled/></li>
+    <li><label>PHP运行方式</label>
+    <input  type="text" class="dfinput" value="<?php echo $info['PHP运行方式'];?>" disabled/></li>
+    <li><label>上传附件限制</label>
+    <input  type="text" class="dfinput"value="<?php echo $info['上传附件限制'];?>" disabled /></li>
+    <li><label>执行时间限制</label>
+    <input  type="text" class="dfinput"value="<?php echo $info['执行时间限制'];?>" disabled /></li>
+    <li><label>服务器时间</label>
+    <input  type="text" class="dfinput" value="<?php echo $info['服务器时间'];?>"  disabled/></li>
+    <li><label>北京时间</label>
+    <input  type="text" class="dfinput" value="<?php echo $info['北京时间'];?>" disabled/></li>
+     <li><label>服务器域名/IP</label>
+     <input  type="text" class="dfinput" value="<?php echo $info['服务器域名/IP'];?>" disabled/></li>
+    </ul>
+    
+    
+    </div>
+
+
+</body>
+
+</html>

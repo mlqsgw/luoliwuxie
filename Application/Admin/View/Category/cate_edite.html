@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/select-ui.min.js"></script>
+<script language="JavaScript" src="__PUBLIC__/admin/js/sweetalert.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/admin/css/sweetalert.css">
+
+
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+    width : 345       
+  });
+  
+});
+</script>
+
+<!--图片预览-->
+<script type="text/javascript"> 
+
+//thumb预览
+function pr_thumb_Image(file)  
+{  
+  var MAXWIDTH  = 300;  
+  var MAXHEIGHT = 120;  
+  var div = document.getElementById('preview_xiao');  
+  if (file.files && file.files[0])  
+  {  
+    div.innerHTML = '<img id=imghead>';  
+    var img = document.getElementById('imghead');  
+    img.onload = function(){  
+      var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+      img.width = rect.width;  
+      img.height = rect.height;  
+      img.style.marginLeft = rect.left+'px';  
+      img.style.marginTop = rect.top+'px';  
+    }  
+    var reader = new FileReader();  
+    reader.onload = function(evt){img.src = evt.target.result;}  
+    reader.readAsDataURL(file.files[0]);  
+  }  
+  else  
+  {  
+    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';  
+    file.select();  
+    var src = document.selection.createRange().text;  
+    div.innerHTML = '<img id=imghead>';  
+    var img = document.getElementById('imghead');  
+    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;  
+    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);  
+    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";  
+  }  
+}  
+
+
+function previewImage(file)  
+{  
+  var MAXWIDTH  = 300;  
+  var MAXHEIGHT = 200;  
+  var div = document.getElementById('preview_da');  
+  if (file.files && file.files[0])  
+  {  
+    div.innerHTML = '<img id=imghead_da>';  
+    var img = document.getElementById('imghead_da');  
+    img.onload = function(){  
+      var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+      img.width = rect.width;  
+      img.height = rect.height;  
+      img.style.marginLeft = rect.left+'px';  
+      img.style.marginTop = rect.top+'px';  
+    }  
+    var reader = new FileReader();  
+    reader.onload = function(evt){img.src = evt.target.result;}  
+    reader.readAsDataURL(file.files[0]);  
+  }  
+  else  
+  {  
+    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';  
+    file.select();  
+    var src = document.selection.createRange().text;  
+    div.innerHTML = '<img id=imghead_da>';  
+    var img = document.getElementById('imghead_da');  
+    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;  
+    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);  
+    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";  
+  }  
+} 
+function clacImgZoomParam( maxWidth, maxHeight, width, height ){  
+    var param = {top:0, left:0, width:width, height:height};  
+    if( width>maxWidth || height>maxHeight )  
+    {  
+        rateWidth = width / maxWidth;  
+        rateHeight = height / maxHeight;  
+          
+        if( rateWidth > rateHeight )  
+        {  
+            param.width =  maxWidth;  
+            param.height = Math.round(height / rateWidth);  
+        }else  
+        {  
+            param.width = Math.round(width / rateHeight);  
+            param.height = maxHeight;  
+        }  
+    }  
+      
+    param.left = Math.round((maxWidth - param.width) / 2);  
+    param.top = Math.round((maxHeight - param.height) / 2);  
+    return param;  
+}  
+</script>
+</head>
+
+<body>
+
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="__ROOT__/Admin/Index/main">首页</a></li>
+    <li><a href="javascript:;">栏目修改</a></li>
+    </ul>
+    </div>
+    
+    <div class="formbody">
+  
+    <div id="usual1" class="usual"> 
+
+   
+    <!--栏目添加-->
+  <div id="tab1" class="tabson">
+    <div class="formtext">
+        Hi，<b>超级管理员</b>，欢迎您使用栏目管理！
+    </div>
+  <form method='post' action="__URL__/cate_edite_send" enctype="multipart/form-data">
+
+<input type="hidden" name="cate_id" value="<?php echo $result['cate_id'];?>">
+    <ul class="forminfo">
+   
+    <li>
+      <label>所属栏目<b>*</b></label>
+      <div class="vocation">
+      <select class="select1" name='pid'>
+       <option value="0">一级栏目</option>
+       <?php foreach($cate_list as $value):?>
+          <option value="<?php echo $value['cate_id'];?>"
+   <?php if($value['cate_id'] == $result['pid']):?>selected<?php endif;?>
+          >
+          <?php echo $value['treeName'];?>
+          </option>
+      <?php endforeach;?>
+     </select>
+      </div>
+    </li>
+    
+   
+    <li>
+      <label>栏目类型<b>*</b></label>
+       <div class="vocation">
+      <select class="select1" name='model'>
+       <?php foreach($cate_type as $value):?>
+          <option value="<?php echo $value['model'];?>"
+<?php if($value['model'] == $result['model']):?>selected<?php endif;?>
+          >
+          <?php echo $value['name'];?>
+          </option>
+    <?php endforeach;?>
+     </select>
+      </div>
+    </li>
+
+     <li>
+      <label>栏目名称<b>*</b></label>
+   <input name="cate_name" type="text" class="dfinput"  style="width:345px;"
+   value="<?php echo $result['cate_name'];?>" />
+    </li>
+
+     <li>
+      <label>栏目说明<b>*</b></label>
+      <textarea name="content" cols="504" rows="135" class="textinput">
+        <?php echo $result['content'];?>
+      </textarea>
+    </li>
+
+    <li><label>导航显示</label>
+     <cite>
+     <input name="is_show" type="radio" value="0"
+     <?php if($result['is_show'] == 0):?>checked<?php endif;?> />否
+     &nbsp;&nbsp;&nbsp;&nbsp;
+     <input name="is_show" type="radio" value="1" 
+     <?php if($result['is_show'] == 1):?>checked<?php endif;?>/>是
+     </cite>
+     </li>
+
+     <li><label>是否多篇</label>
+     <cite>
+     <input name="is_more" type="radio" value="0" 
+     <?php if($result['is_more'] == 0):?>checked<?php endif;?> />否
+     &nbsp;&nbsp;&nbsp;&nbsp;
+     <input name="is_more" type="radio" value="1" 
+      <?php if($result['is_more'] == 1):?>checked<?php endif;?>  />是
+     </cite>
+     </li>
+
+
+      <li>
+      <label>列表模板<b>*</b></label>
+       <div class="vocation">
+      <select class="select1" name='list_tpl'>
+       <?php foreach($themes_list as $value):?>
+          <option value="<?php echo $value['tl_id'];?>"
+<?php if($value['tl_id'] == $result['list_tpl']):?>selected<?php endif;?>
+          >
+          <?php echo $value['name'];?>
+          </option>
+       <?php endforeach;?>
+     </select>
+      </div>
+    </li>
+
+     <li>
+      <label>详情模板<b>*</b></label>
+       <div class="vocation">
+      <select class="select1" name='detail_tpl'>
+       <?php foreach($themes_detail as $value):?>
+          <option value="<?php echo $value['td_id'];?>"
+<?php if($value['td_id'] == $result['detail_tpl']):?>selected<?php endif;?>
+          >
+          <?php echo $value['name'];?>
+          </option>
+      <?php endforeach;?>
+     </select>
+      </div>
+    </li>
+
+    <li>
+      <label>导航小图<b>*</b></label>
+      <input name="thumb" type="file"    onchange="pr_thumb_Image(this)"     /><i>支持图片类型：jpg、gif 、png、jpeg</i>
+    </li>
+
+     <li>
+      <label>小图预览<b>*</b></label>
+      <span id="preview_xiao">
+      <?php if($result['thumb']):?>
+       <img  id="imghead" src="__ROOT__/Uploads/category/<?php echo $result['thumb'];?>" width='300' height='200' border=0   >
+      <?php else:?>
+        <img  id="imghead" src="__PUBLIC__/admin/images/nopic.gif" width='300' height='120' border=0   >
+      <?php endif;?>
+      </span>
+    </li>
+
+     <li>
+      <label>栏目大图<b>*</b></label>
+      <input name="banner" type="file"   onchange="previewImage(this)"    /><i>支持图片类型：jpg、gif 、png、jpeg</i>
+    </li>
+   <li>
+      <label>大图预览<b>*</b></label>
+      <span id="preview_da">
+      <?php if($result['banner']):?>
+       <img  id="imghead_da" src="__ROOT__/Uploads/category/<?php echo $result['banner'];?>" width='300' height='200' border=0   >
+      <?php else:?>
+        <img  id="imghead" src="__PUBLIC__/admin/images/nopic.gif" width='300' height='200' border=0   >
+      <?php endif;?>
+      </span>
+    </li>
+
+
+
+     <li>
+      <label>分页条数<b>*</b></label>
+   <input name="perpage" type="text" class="dfinput"  style="width:345px;"
+   value="<?php echo $result['perpage'];?>" />
+    </li>
+
+
+
+    <li><label>&nbsp;</label>
+    <input name="sub" type="submit" class="btn" value="马上发布"/>
+    </li>
+
+    </ul>
+    </form>
+    </div> 
+
+       
+	</div> 
+
+    </div>
+
+  
+</body>
+
+</html>

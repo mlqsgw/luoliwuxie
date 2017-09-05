@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>企业网站模板</title>
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/amazeui.css" />
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/common.min.css" />
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/contact.min.css" />
+
+        <link rel="stylesheet" href="__ROOT__/Public/Home/css/style.css">
+
+        <style type="text/css">
+        body, html{width: 100%;height: 100%;margin:0;}
+        #allmap {width:600px;height:500px;overflow: hidden;}
+
+        dl,dt,dd,ul,li{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        p{font-size:12px;}
+        dt{
+            font-size:14px;
+            font-family:"微软雅黑";
+            font-weight:bold;
+            border-bottom:1px dotted #000;
+            padding:5px 0 5px 5px;
+            margin:5px 0;
+        }
+        dd{
+            padding:5px 0 0 5px;
+        }
+        li{
+            line-height:28px;
+        }
+        .am-sticky {position: fixed !important;
+            z-index: 1010;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+        </style>
+    <!--这里要替换你的key  ak=你的key -->
+<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=hmREmCi2VbkCBBUtcD2QpPl3FuI5ymBD"></script>-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3ac1342b68fec1069cd54e9af77f7b05"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<title>绘制点并获取当前点的坐标</title>
+</head>
+<body>
+<div class="layout">
+    <!--===========layout-header================-->
+    <include file="top" />
+    <!--mobile header end-->
+</div>
+<div id="allmap" style="overflow:hidden;zoom:1;position:relative;margin:auto;margin-top:35px;width:60%;">
+    <div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+</div>
+
+<include file="footer" />
+
+<script type="text/javascript">
+    // 百度地图API功能
+    map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(112.424325,34.619474), 13);
+    map.enableScrollWheelZoom(); // 添加滚动轴
+    map.addControl(new BMap.NavigationControl()); // 添加左上角的标尺工具
+    map.addControl(new BMap.NavigationControl());
+    map.addControl(new BMap.ScaleControl());
+    map.addControl(new BMap.OverviewMapControl());
+    map.addControl(new BMap.MapTypeControl());
+    map.setCurrentCity("洛阳");
+    var data_info = [[112.424325,34.619474,"名称：洛阳理工学院武术协会（西分会）<br/>地址： 河南省洛阳市洛龙区学子街8号"],
+        [112.439283,34.614729,"名称：洛阳理工学院武术协会（东分会）<br/>地址： 河南省洛阳市洛龙区王城大道90号"],
+        [112.420266,34.655682,"名称：洛阳理工学院武术协会（北分会）<br/>地址： 河南省洛阳市涧西区九都路与珠江路交叉口"]
+    ];
+    var opts = {
+        width : 250,     // 信息窗口宽度
+        height: 80,     // 信息窗口高度
+        title : "地址详情" , // 信息窗口标题
+        enableMessage:true//设置允许信息窗发送短息
+    };
+
+    for(var i=0;i<data_info.length;i++){
+        var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
+        var content = data_info[i][2];
+        map.addOverlay(marker);               // 将标注添加到地图中
+        addClickHandler(content,marker);
+    }
+    function addClickHandler(content,marker){
+        marker.addEventListener("click",function(e){
+                    openInfo(content,e)}
+        );
+    }
+    function openInfo(content,e){
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow,point); //开启信息窗口
+        document.getElementById("map").innerHTML = "信息窗口的内容是：<br />" + infoWindow.getContent();
+    }
+
+</script>
+</body>
+</html>
+</script>

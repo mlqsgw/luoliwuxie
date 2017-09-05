@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/select-ui.min.js"></script>
+<script language="JavaScript" src="__PUBLIC__/admin/js/sweetalert.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/admin/css/sweetalert.css">
+  
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+		width : 345			  
+	});
+});
+</script>
+</head>
+
+<body>
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="__ROOT__/Admin/Index/main" >首页</a></li>
+    <li><a href="javascript:;">会员修改</a></li>
+    </ul>
+    </div>
+    <div class="formbody">
+    <div id="usual1" class="usual"> 
+    <!--管理员修改-->
+  <div  class="tabson">
+    <form id="form-data">
+    <input type="hidden"  name="id" value="<{$users_data['id']}>">
+    <ul class="forminfo">
+    
+    <li>
+      <label>帐号<b>*</b></label>
+      <input name="account" type="text" class="dfinput"   value="<{$users_data['account']}>" disabled/><i>此为登录名，不可更改</i>
+    </li>
+     <li>
+      <label>电话<b>*</b></label>
+      <input name="phone" type="text" class="dfinput"  value="<{$users_data['phone']}>" />
+    </li>
+    <li>
+      <label>邮箱<b>*</b></label>
+      <input name="email" type="text" class="dfinput"  value="<{$users_data['email']}>" />
+    </li>
+
+    <li><label>&nbsp;</label>
+    <input type="submit" class="btn" value="提交"/></li>
+    </ul>
+    </form>
+    </div> 
+   
+	</div>
+
+    </div>
+    <script>
+        $(".btn").click(function(){
+            $.ajax({
+                type : "POST",
+                url : "<{:u('Users/do_user_edit')}>",
+                data : $("#form-data").serializeArray(),
+                dataType : 'json',
+                success : function (data){
+                    if (data["status"]) {
+                        location.href = "<{:u('Users/user_list')}>";
+                    } else {
+                        alert(data["message"]);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

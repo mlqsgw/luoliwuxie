@@ -1,0 +1,141 @@
+body{
+    background: #494A5F;
+    color: #D5D6E2;
+    font-weight: 500;
+    font-size: 1.05em;
+    font-family: "Microsoft YaHei","宋体","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+}
+a{color: #2fa0ec;outline: none;text-decoration: none;}
+a:hover,a:focus{color:#74777b;text-decoration: none;}
+
+@font-face {
+    font-family: Agency;
+}
+body {
+    font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif;
+    marging: 0;
+}
+
+#hovertreemarquee {
+    /*margin-top: 3rem;*/
+    -webkit-perspective: 500px;
+    perspective: 500px;
+    font-size: 0;
+    font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif;
+}
+
+#hovertreemarquee div {
+    display: inline-block;
+    height: 6rem;
+    width: 30rem;
+    position: relative;
+}
+
+#hovertreemarquee div:first-of-type {
+    background: #e5233e;
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+    -webkit-transform: rotateY(-40deg);
+    transform: rotateY(-40deg);
+    color: #fff;
+}
+
+#hovertreemarquee div:last-of-type {
+    background: #b31e31;
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+    -webkit-transform: rotateY(45deg);
+    transform: rotateY(45deg);
+    color: #f8c9d9;
+}
+
+#hovertreemarquee div {
+    font-size: 5rem;
+    overflow: hidden;
+}
+
+#hovertreemarquee div span {
+    position: absolute;
+    width: 200%;
+    line-height: 1.4;
+}
+
+@-webkit-keyframes leftcrawl {
+    to {
+        -webkit-transform: translateX(-100rem);
+        transform: translateX(-100rem);
+    }
+}
+
+@keyframes leftcrawl {
+    to {
+        -webkit-transform: translateX(-100rem);
+        transform: translateX(-100rem);
+    }
+}
+@-webkit-keyframes rightcrawl {
+    to {
+        -webkit-transform: translateX(-130rem);
+        transform: translateX(-130rem);
+    }
+}
+@keyframes rightcrawl {
+    to {
+        -webkit-transform: translateX(-130rem);
+        transform: translateX(-130rem);
+    }
+}
+#hovertreemarquee div:first-of-type span {
+    -webkit-transform: translateX(60rem);
+    transform: translateX(60rem);
+    -webkit-animation: leftcrawl 14s linear infinite;
+    animation: leftcrawl 14s linear infinite;
+    text-shadow: 4px 0px 4px rgba(0, 0, 0, 0.3);
+}
+
+#hovertreemarquee div:last-of-type span {
+    -webkit-transform: translateX(30rem);
+    transform: translateX(30rem);
+    -webkit-animation: rightcrawl 14s linear infinite;
+    animation: rightcrawl 14s linear infinite;
+}
+
+form {
+    margin-top: 3rem;
+    /*background: #334;*/
+    padding: 1rem;
+    text-align: center;
+    color: #fff;
+}
+
+input[type="text"] {
+    padding: .5rem;
+    font-size: 1.2rem;
+    width: 22rem;
+}
+
+input[type="text"] {
+    padding: .5rem;
+}
+
+label {
+    margin: 1rem;
+}
+
+@media all and (max-width: 993px) {
+    #hovertreemarquee {
+        -webkit-perspective: none;
+        perspective: none;
+    }
+
+    #hovertreemarquee div:last-of-type {
+        opacity: 0;
+        height: 0;
+    }
+
+    #hovertreemarquee div:first-of-type {
+        width: 80%;
+    }
+}
+.hovertreeinfo{text-align:center;}
+/* 何问起 hovertree.com */

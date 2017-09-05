@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>企业网站模板</title>
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/amazeui.css" />
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/common.min.css" />
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/contact.min.css" />
+
+    <link rel="stylesheet" href="__ROOT__/Public/Home/css/style.css">
+
+    <style type="text/css">
+        body, html{width: 100%;height: 100%;margin:0;}
+        #allmap {width:600px;height:500px;overflow: hidden;}
+
+        dl,dt,dd,ul,li{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        p{font-size:12px;}
+        dt{
+            font-size:14px;
+            font-family:"微软雅黑";
+            font-weight:bold;
+            border-bottom:1px dotted #000;
+            padding:5px 0 5px 5px;
+            margin:5px 0;
+        }
+        dd{
+            padding:5px 0 0 5px;
+        }
+        li{
+            line-height:28px;
+        }
+        .am-sticky {position: fixed !important;
+            z-index: 1010;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+    </style>
+    <!--这里要替换你的key  ak=你的key -->
+    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=hmREmCi2VbkCBBUtcD2QpPl3FuI5ymBD"></script>-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=3ac1342b68fec1069cd54e9af77f7b05"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <title>绘制点并获取当前点的坐标</title>
+</head>
+<body>
+<div class="layout">
+    <!--===========layout-header================-->
+    <include file="top" />
+    <!--mobile header end-->
+</div>
+<div id="allmap" style="overflow:hidden;zoom:1;position:relative;margin:auto;margin-top:35px;width:60%;">
+    <div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+</div>
+
+<include file="footer" />
+
+<script type="text/javascript">
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(112.424325,34.619474); // 需要标注的位置的经纬度
+    map.centerAndZoom(point, 13); // 中心位置和缩放倍数
+    map.enableScrollWheelZoom(); // 添加滚动轴
+    map.addControl(new BMap.NavigationControl()); // 添加左上角的标尺工具
+    map.addControl(new BMap.NavigationControl());
+    map.addControl(new BMap.ScaleControl());
+    map.addControl(new BMap.OverviewMapControl());
+    map.addControl(new BMap.MapTypeControl());
+    map.setCurrentCity("洛阳");
+
+    var opts = {
+        width : 200, // 信息窗口宽度
+        height: 20, // 信息窗口高度
+        title : "洛阳理工武术协会 （西分会）" // 信息窗口标题
+    }
+    var infoWindow = new BMap.InfoWindow("训练场地", opts); // 创建信息窗口对象
+    map.openInfoWindow(infoWindow, map.getCenter()); // 打开信息窗口
+    var marker = new BMap.Marker(point); // 创建标注,即地图上的小红点
+    map.addOverlay(marker);
+
+    var point2 = new BMap.Point(112.439283,34.614729); // 需要标注的位置的经纬度
+    var opts2 = {
+        width : 200, // 信息窗口宽度
+        height: 20, // 信息窗口高度
+        title : "洛阳理工武术协会 （东分会）" // 信息窗口标题
+    }
+    var infoWindow2 = new BMap.InfoWindow("训练场地", opts2); // 创建信息窗口对象
+    map.openInfoWindow(infoWindow2, map.getCenter()); // 打开信息窗口
+    var marker2 = new BMap.Marker(point2); // 创建标注,即地图上的小红点
+    map.addOverlay(marker2);
+
+    var point3 = new BMap.Point(112.420266,34.655682); // 需要标注的位置的经纬度
+    var opts3 = {
+        width : 200, // 信息窗口宽度
+        height: 20, // 信息窗口高度
+        title : "洛阳理工武术协会 （北分会）" // 信息窗口标题
+    }
+    var infoWindow3 = new BMap.InfoWindow("训练场地", opts3); // 创建信息窗口对象
+    map.openInfoWindow(infoWindow3, map.getCenter()); // 打开信息窗口
+    var marker3 = new BMap.Marker(point3); // 创建标注,即地图上的小红点
+    map.addOverlay(marker3);
+
+
+</script>
+</body>
+</html>
+</script>

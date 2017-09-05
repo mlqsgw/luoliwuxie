@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分类修改</title>
+    <link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/admin/js/select-ui.min.js"></script>
+    <script language="JavaScript" src="__PUBLIC__/admin/js/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/admin/css/sweetalert.css">
+    <script language="JavaScript" src="__PUBLIC__/admin/js/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/admin/css/sweetalert.css">
+    <script type="text/javascript">
+        $(document).ready(function(e) {
+            $(".select1").uedSelect({
+                width : 345
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="__ROOT__/Admin/Index/main">首页</a></li>
+        <li><a href="javascript:;">栏目管理</a></li>
+    </ul>
+</div>
+
+<div class="formbody">
+    <div id="usual1" class="usual">
+        <!--栏目编辑-->
+        <div id="tab1" class="tabson">
+            <div class="formtext">
+                Hi，<b>超级管理员</b>，欢迎您使用分类管理！
+            </div>
+            <form id="data-form">
+                <ul class="forminfo">
+                    <li>
+                        <input type="hidden" name="id" value="<{$category_data.id}>" />
+                        <label>所属分类<b>*</b></label>
+                        <div class="vocation">
+                            <select class="select1" name='parent_id'>
+                                <option value="0">一级分类</option>
+                                <volist name="data_cate" id="vo">
+                                    <option value="<{$vo.id}>"><{$vo.cate_name}></option>
+                                </volist>
+                            </select>
+                        </div>
+                    </li>
+
+                    <li>
+                        <label>分类名称<b>*</b></label>
+                        <input name="cate_name" type="text" class="dfinput" value="<{$category_data.cate_name}>"/>
+                    </li>
+
+                    <li>
+                        <label>分类说明<b>*</b></label>
+                        <textarea name="cate_content" cols="" rows="" class="textinput"><{$category_data.cate_content}></textarea>
+                    </li>
+
+
+                    <li><label>&nbsp;</label>
+                        <input type="button" class="btn" value="提交"/>
+                    </li>
+
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(".btn").click(function(){
+        $.ajax({
+            type : "post",
+            url : "<{:u('Category/category_edit_do')}>",
+            data : $("#data-form").serializeArray(),
+            dataType : 'json',
+            success : function(data){
+                if (data) {
+                    swal({
+                        title : "编辑成功",
+                        text : "",
+                        type : "success",
+                    },function(){
+                        location.reload();
+                    });
+                } else {
+                    swal("编辑失败","","error");
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

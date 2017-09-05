@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="__PUBLIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/select-ui.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+    width : 345       
+  });
+  
+});
+</script>
+
+<!--用户头像预览-->
+<script type="text/javascript">  
+function previewImage(file)  
+{  
+  var MAXWIDTH  = 300;  
+  var MAXHEIGHT = 200;  
+  var div = document.getElementById('preview');  
+  if (file.files && file.files[0])  
+  {  
+    div.innerHTML = '<img id=imghead>';  
+    var img = document.getElementById('imghead');  
+    img.onload = function(){  
+      var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+      img.width = rect.width;  
+      img.height = rect.height;  
+      img.style.marginLeft = rect.left+'px';  
+      img.style.marginTop = rect.top+'px';  
+    }  
+    var reader = new FileReader();  
+    reader.onload = function(evt){img.src = evt.target.result;}  
+    reader.readAsDataURL(file.files[0]);  
+  }  
+  else  
+  {  
+    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';  
+    file.select();  
+    var src = document.selection.createRange().text;  
+    div.innerHTML = '<img id=imghead>';  
+    var img = document.getElementById('imghead');  
+    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;  
+    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);  
+    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";  
+  }  
+}  
+function clacImgZoomParam( maxWidth, maxHeight, width, height ){  
+    var param = {top:0, left:0, width:width, height:height};  
+    if( width>maxWidth || height>maxHeight )  
+    {  
+        rateWidth = width / maxWidth;  
+        rateHeight = height / maxHeight;  
+          
+        if( rateWidth > rateHeight )  
+        {  
+            param.width =  maxWidth;  
+            param.height = Math.round(height / rateWidth);  
+        }else  
+        {  
+            param.width = Math.round(width / rateHeight);  
+            param.height = maxHeight;  
+        }  
+    }  
+      
+    param.left = Math.round((maxWidth - param.width) / 2);  
+    param.top = Math.round((maxHeight - param.height) / 2);  
+    return param;  
+}  
+</script>
+
+
+</head>
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="__ROOT__/Admin/Index/main">首页</a></li>
+    <li><a href="javascript:;">绘本修改</a></li>
+    </ul>
+    </div>
+    
+    <div class="formbody">
+  
+    <div id="usual1" class="usual"> 
+
+    <!--广告添加-->
+  <div id="tab1" class="tabson">
+    <form method='post' action="__URL__/picture_edite_send" enctype="multipart/form-data">
+    <input type="hidden" name="picture_id" value="<?php echo $result['picture_id'];?>">
+    <input type="hidden" name="thumb" value="<?php echo $result['thumb'];?>">
+
+    <ul class="forminfo">
+      <li><label>所属栏目<b>*</b></label>  
+      <div class="vocation">
+      <select class="select1" name='cate_id'>
+       <?php foreach($cate as $value):?>
+          <option  <?php if($value['cate_id'] == $result['cate_id']):?> selected <?php endif;?>  value="<?php echo $value['cate_id'];?>">
+          <?php echo $value['cate_name'];?>
+          </option>
+      <?php endforeach;?>
+     </select>
+      </div>
+    </li>
+    <li>
+      <label>书名<b>*</b></label>
+      <input name="name" type="text" class="dfinput"  style="width:518px;" value='<?php echo $result['name'];?>'/>
+    </li>
+
+     <li>
+      <label>缩略图<b>*</b></label>
+      <input name="thumb" type="file"  style="width:518px;"   onchange="previewImage(this)"  /><i>支持图片类型：jpg、gif 、png、jpeg</i>
+    </li>
+    <li>
+      <label>图片预览<b>*</b></label>
+      <span id="preview">
+      <?php if($result['thumb']):?>
+       <img  id="imghead" src="__ROOT__/Uploads/<?php echo $result['thumb'];?>" width='300' height='200' border=0   >
+      <?php else:?>
+        <img  id="imghead" src="__PUBLIC__/admin/images/nopic.gif" width='300' height='200' border=0   >
+      <?php endif;?>
+      </span>
+     </li>
+     <li>
+      <label>作者<b>*</b></label>
+      <input name="author" type="text" class="dfinput"  style="width:518px;" value='<?php echo $result['author'];?>'/>
+    </li>
+    <li>
+      <label>出版社<b>*</b></label>
+      <input name="press" type="text" class="dfinput"  style="width:518px;" value='<?php echo $result['press'];?>'/>
+    </li>
+   
+   <li>
+      <label>出版时间<b>*</b></label>
+      <input name="press_time" type="text" class="dfinput"  style="width:518px;" value='<?php echo $result['press_time'];?>'/>
+    </li>
+
+     <li>
+      <label>版本号<b>*</b></label>
+      <input name="isbn" type="text" class="dfinput"  style="width:518px;" value='<?php echo $result['isbn'];?>'/>
+    </li>
+     <li>
+      <label>价格<b>*</b></label>
+      <input name="price" type="text" class="dfinput"  style="width:518px;" value='<?php echo $result['price'];?>'/>
+    </li>
+
+     <li>
+      <label>适龄<b>*</b></label>
+      <input name="shiling" type="text" class="dfinput"  style="width:518px;" value='<?php echo $result['shiling'];?>'/>
+    </li>
+
+    <li>
+      <label>简介<b>*</b></label>
+      <textarea name="content" cols="" rows="" class="textinput">
+        <?php echo $result['content'];?>
+      </textarea>
+    </li>
+     
+    <li><label>借阅状态</label>
+     <cite>
+     <input name="jie_status" type="radio" value="1" <?php if($result['jie_status'] == 1):?>checked<?php endif;?> />未借阅
+     &nbsp;&nbsp;&nbsp;&nbsp;
+     <input name="jie_status" type="radio" value="2" <?php if($result['jie_status'] == 2):?>checked<?php endif;?>  />已借出
+     </cite>
+     </li>
+
+     <li><label>显示状态</label>
+     <cite>
+     <input name="status" type="radio" value="1" <?php if($result['status'] == 1):?>checked<?php endif;?> />正常
+     &nbsp;&nbsp;&nbsp;&nbsp;
+     <input name="status" type="radio" value="2" <?php if($result['status'] == 2):?>checked<?php endif;?>  />下架
+     </cite>
+     </li>
+
+
+    <li><label>&nbsp;</label>
+    <input name="sub" type="submit" class="btn" value="马上发布"/></li>
+    </ul>
+    </form>
+    </div> 
+ 
+       
+	</div> 
+
+    </div>
+
+  
+</body>
+
+</html>

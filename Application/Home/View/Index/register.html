@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>企业网站模板</title>
+  <link rel="stylesheet" href="__PUBLIC__/Home/css/amazeui.css" />
+  <link rel="stylesheet" href="__PUBLIC__/Home/css/common.min.css" />
+  <link rel="stylesheet" href="__PUBLIC__/Home/css/other.min.css" />
+  <link rel="stylesheet" href="__ROOT__/Public/Home/css/style.css">
+  <script language="JavaScript" src="__PUBLIC__/admin/js/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="__PUBLIC__/admin/css/sweetalert.css">
+    <style>
+        .sweet-alert button{margin:90px 5px 0 5px;}
+    </style>
+</head>
+<body class="register-container">
+  <div class="layout">
+    <!--===========layout-header================-->
+    <div class="layout-header am-hide-sm-only">
+      <!--topbar start-->
+      <include file="top" />
+      <!--mobile header end-->
+    </div>
+    <!--===========layout-container================-->
+    <div class="register-box">
+      <form id="data-form" class="am-form" data-am-validator>
+        <fieldset>
+          <legend>注册用户<p class="register-info">请填写手机和邮箱信息，用于密码找回。</p></legend>
+
+            <div class="am-form-group">
+                <div class="am-g">
+                  <div class="am-u-md-2 am-padding-0 am-text-right">
+                    <label for="doc-vld-name-2" class="register-name" style="margin-left: -18px;">账号</label>
+                  </div>
+                  <div class="am-u-md-10">
+                    <input type="text" name="account" id="doc-vld-name-2" minlength="6"
+                       placeholder="输入登陆帐号（至少 6 个字符）" required/>
+                  </div>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <div class="am-g">
+                  <div class="am-u-md-2 am-padding-0 am-text-right">
+                    <label for="doc-vld-pwd-1" class="register-pwd" style="margin-left: -18px;">密码</label>
+                  </div>
+                  <div class="am-u-md-10">
+                    <input type="password" name="password" id="doc-vld-pwd-1" placeholder="输入登陆密码（至少6个字符）" minlength="6" required/>
+                  </div>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <div class="am-g">
+                  <div class="am-u-md-2 am-padding-0 am-text-right">
+                    <label for="doc-vld-pwd-2">确认密码</label>
+                  </div>
+                  <div class="am-u-md-10">
+                    <input type="password" name="rpassword" id="doc-vld-pwd-2" placeholder="请与上面输入的值一致" data-equal-to="#doc-vld-pwd-1" required/>
+                  </div>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <div class="am-g">
+                    <div class="am-u-md-2 am-padding-0 am-text-right">
+                        <label for="doc-vld-name-2" class="register-name" style="margin-left: -5px;">手机号</label>
+                    </div>
+                    <div class="am-u-md-10">
+                        <input type="text" name="phone"
+                               placeholder="输入手机号" required/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="am-form-group">
+                <div class="am-g">
+                    <div class="am-u-md-2 am-padding-0 am-text-right">
+                        <label for="doc-vld-name-2" class="register-name" style="margin-left: -18px;">邮箱</label>
+                    </div>
+                    <div class="am-u-md-10">
+                        <input type="text" name="email" id="doc-vld-name-2" minlength="3"
+                               placeholder="输入邮箱" required/>
+                    </div>
+                </div>
+            </div>
+
+          <div class="am-g">
+            <div class="am-u-md-10">
+              <span class="am-btn am-btn-secondary" id="submit" type="submit" style="padding-top:14px;">注册</span>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+  </div>
+
+
+
+
+  <script src="__PUBLIC__/Home/js/jquery-2.1.0.js" charset="utf-8"></script>
+  <script src="__PUBLIC__/Home/js/amazeui.js" charset="utf-8"></script>
+
+  <script src="__ROOT__/Public/Home/js/html5shiv.min.js"></script>
+  <script type="text/javascript" src="__ROOT__/Public/Home/js/marquee.js"></script>
+
+  <script type="text/javascript">
+      document.querySelector("#hovertreemarquee div:first-of-type span");
+      document.querySelector(".am-g");
+  </script>
+
+  <script>
+      $("#submit").click(function(){
+          $.ajax({
+              type : "POST",
+              url : "<{:u('Index/do_register')}>",
+              data : $("#data-form").serializeArray(),
+              dataType : 'json',
+              success : function(data){
+                  if (data["status"]) {
+                      swal ({
+                          title : data['message'],
+                          text : "",
+                          type : "success"
+                      },function(){
+                          location.href = "<{:u('Index/index')}>";
+                      });
+                  } else {
+                      swal(data['message'],"","error");
+                  }
+              }
+          });
+      });
+  </script>
+</body>
+
+</html>
